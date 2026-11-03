@@ -24,15 +24,9 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
-      - name: Checar login do MB
-        run: bash check-login.sh
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-
       - name: Salvar estado (so se mudou)
         run: |
           git config user.name "mb-monitor"
           git config user.email "mb-monitor@users.noreply.github.com"
-          git add state/api.state state/login.state
+          git add state/api.state
           git diff --cached --quiet || { git commit -m "estado: $(cat state/api.state)" && git push; }
